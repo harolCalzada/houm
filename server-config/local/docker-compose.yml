@@ -1,25 +1,9 @@
 version: "3"
 services:
-  back:
-    container_name: houm-back-local
-    build:
-      context: ../../
-      dockerfile: ./server-config/local/Dockerfile
-    restart: unless-stopped
-    env_file:
-      - ../../.env
-    # command: python /www/src/manage.py runserver 0.0.0.0:8000 --settings=config.settings.local
-    # entrypoint: ./docker-entrypoint.sh
-    volumes:
-      - ../../src:/www/src
-    depends_on:
-      - db
-    ports:
-      - "8000:8000"
   db:
     container_name: houm-db-local
-    # image: "mdillon/postgis:10"
-    image: "jeffrosen1092/postgis:latest" # if you are using ARM based machine uncomment this line
+    image: "mdillon/postgis:10"
+    #image: "jeffrosen1092/postgis:latest" # if you are using ARM based machine uncomment this line
     platform: linux/arm64  # if you are using ARM based machine uncomment this line
     restart: unless-stopped
     env_file:
@@ -28,8 +12,32 @@ services:
       - "5435:5432"
     volumes:
       - ../../houm-db:/var/lib/postgresql/data
+    # healthcheck:
+    #   test: ["CMD-SHELL", "pg_isready -U houm_user"]
+    #   interval: 5s
+    #   timeout: 5s
+    #   retries: 5
+    
+  back:
+    container_name: houm-back-local
+    build:
+      context: ../../
+      dockerfile: ./server-config/local/Dockerfile
+    restart: unless-stopped
+    env_file:
+      - ../../.env
+    command: python /www/src/manage.py runserver 0.0.0.0:8000 --settings=config.settings.base
+    #entrypoint: ./entrypoint.sh
+    volumes:
+      - ../../src:/www/src
+    depends_on:
+      - db
+      # db:
+      #   condition: service_healthy
+    ports:
+      - "8000:8000"
   
 volumes:
-  beneficios-db:
+  db:
     driver: local
 

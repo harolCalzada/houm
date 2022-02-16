@@ -17,8 +17,9 @@ RUN mkdir -p /www/logs/ && chown -R webapp /www/logs/ && chmod -R u+rX /www/logs
 COPY ./src/ ./src
 COPY ./requirements ./requirements
 RUN pip install -r ./requirements/local.txt
+COPY ./server-config/local/entrypoint.sh ./entrypoint.sh
 
-#RUN chmod +x ./entrypoint.sh
-#CMD ["sh", "./entrypoint.sh"]
+RUN chmod +x ./entrypoint.sh
+# CMD ["sh", "./entrypoint.sh"]
 ENV PYTHONUNBUFFERED 1
 EXPOSE 8000
