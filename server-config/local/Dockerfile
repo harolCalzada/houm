@@ -5,6 +5,7 @@ RUN apt-get update && \
     build-essential gcc libffi-dev make cmake python3-dev musl-dev libsodium-dev libpq-dev\
     binutils libproj-dev gdal-bin \
     postgresql python-psycopg2
+RUN apt install -y netcat
 
 RUN mkdir /www
 WORKDIR /www
