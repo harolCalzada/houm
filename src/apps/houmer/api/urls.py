@@ -1,7 +1,8 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import (
-    ScheduledVisitViewSet
+    ScheduledVisitViewSet,
+    ScheduledVisitStatisticListApiView,
 )
 
 router = DefaultRouter()
@@ -9,4 +10,5 @@ router.register(r"schedule-visits", ScheduledVisitViewSet, basename="schedule-vi
 
 urlpatterns = [
     path("", include(router.urls)),
+    path("statistics/", ScheduledVisitStatisticListApiView.as_view(), name="statistics"),
 ]
