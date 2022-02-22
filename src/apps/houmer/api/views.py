@@ -45,10 +45,9 @@ class ScheduledVisitViewSet(viewsets.ModelViewSet):
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
-        transition = instance.get_transition(request.data.get('status'))
+        transition = instance.get_transition(request.data.get('new_status'))
         if not can_proceed(transition):
             raise ScheduleVisitStatusException('Invalid status')
-        request.data.pop('status')
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         instance = serializer.save()

@@ -6,9 +6,9 @@ from .views import (
 )
 
 router = DefaultRouter()
-router.register(r"schedule-visits", ScheduledVisitViewSet, basename="schedule-visits")
+router.register(r"scheduled-visit", ScheduledVisitViewSet, basename="schedule-visit")
 
 urlpatterns = [
-    path("", include(router.urls)),
-    path("statistics/", ScheduledVisitStatisticListApiView.as_view(), name="statistics"),
+    path("houmer/", include(router.urls)),
+    path("houmer/statistic/", ScheduledVisitStatisticListApiView.as_view(), name="statistic"),
 ]
