@@ -2,9 +2,9 @@ version: "3"
 services:
   db:
     container_name: houm-db-local
-    #image: "mdillon/postgis:10" 
-    image: "jeffrosen1092/postgis:latest" # if you are using ARM based machine uncomment this line
-    platform: linux/arm64  # if you are using ARM based machine uncomment this line
+    image: "mdillon/postgis:10" 
+    #image: "jeffrosen1092/postgis:latest" # if you are using ARM based machine uncomment this line
+    #platform: linux/arm64  # if you are using ARM based machine uncomment this line
     restart: unless-stopped
     env_file:
       - ../../.env
