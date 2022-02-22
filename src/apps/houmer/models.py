@@ -145,8 +145,8 @@ class ScheduledVisitStatistic(models.Model):
         related_name='scheduled_visit_statistic',
         on_delete=models.CASCADE
     )
-    stay_time_in_minutes = models.IntegerField(null=True)
-    velocity_km_x_h = models.IntegerField(null=True)
+    stay_time_in_minutes = models.BigIntegerField(null=True)
+    velocity_km_x_h = models.BigIntegerField(null=True)
 
     class Meta:
         verbose_name = 'Scheduled Visit Report'

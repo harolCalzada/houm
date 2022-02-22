@@ -23,11 +23,20 @@ class ScheduledVisitSerializer(serializers.ModelSerializer):
 class ScheduledVisitStatusSerializer(serializers.ModelSerializer):
     latitude = serializers.FloatField(write_only=True)
     longitude = serializers.FloatField(write_only=True)
+    new_status = serializers.CharField(write_only=True)
 
     class Meta:
         model = ScheduledVisit
-        fields = ['id', 'status', 'latitude', 'longitude', 'houmer', 'propertie']
-        read_only_fields = ['houmer', 'id', 'propertie']
+        fields = [
+            'id',
+            'status',
+            'latitude',
+            'longitude',
+            'houmer',
+            'propertie',
+            'new_status'
+        ]
+        read_only_fields = ['houmer', 'id', 'propertie', 'status']
 
 
 class ScheduledVisitEventSerializer(serializers.ModelSerializer):
