@@ -45,18 +45,26 @@ o si no tienes make instalado
 ```
 docker-compose -f  ./server-config/local/docker-compose.yml up
 ```
-# LOAD DATA
-Puedes cargar data de prueba con el siguiente comando
+# CORRER LAS MIGRACIONES
 ```
-docker-local-loaddata
+make docker-local-migrate
 ```
 o si no tienes make instalado
 ```
-docker-compose -f ./server-config/local/docker-compose.yml exec back python ./src/manage.py loaddata dbv2.json --settings=config.settings.local
+docker-compose -f ./server-config/local/docker-compose.yml exec back python ./src/manage.py migrate --settings=config.settings.local --no-input
+```
+# LOAD DATA
+Puedes cargar data de prueba con el siguiente comando
+```
+make docker-local-loaddata
+```
+o si no tienes make instalado
+```
+docker-compose -f ./server-config/local/docker-compose.yml exec back python ./src/manage.py loaddata db.json --settings=config.settings.local
 ```
 # TESTS
 ```
-docker-local-run-tests
+make docker-local-run-tests
 ```
 o si no tienes make instalado
 ```
@@ -74,4 +82,6 @@ pass: houmer1
 ```
 
 # TROUBLESHOOTING
-Si usas un procesador arm, quizás tengas problemas con la imagen de postgis, en el docker-compose de local tienes que descomentar un par de lineas.
+- Si usas un procesador arm, quizás tengas problemas con la imagen de postgis, en el docker-compose de local tienes que descomentar un par de lineas.
+
+- Si tienes problemas en el loaddata, asegurate que las migraciones se ejecutaron correctamente
